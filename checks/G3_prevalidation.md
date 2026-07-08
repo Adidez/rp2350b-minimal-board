@@ -1,3 +1,14 @@
+# Gate G3 — FINAL: PASS (2026-07-07, post-Stage-2, commit adabefb)
+
+Independent kicad-cli DRC on the v10-converted board (checks/G3_drc.json): **0 errors,
+0 unconnected, 0 schematic-parity**; 52 metadata warnings (37 lib_footprint_mismatch keep-embedded,
+9 silk_over_copper, 4 silk_overlap, 2 lib_footprint_issues). Routing-tools checkers non-vacuous:
+511 segments / 48 vias / 332 pads, 73/73 nets connected, 0 violations. Pad→net equivalence vs
+pre-conversion: 332/332 identical. J1/U1 footprint_type_mismatch resolved at ROOT CAUSE: v7
+project severity policy → KiCad-10 factory default (ignore); attrs correctly remain SMD for CPL.
+
+---
+
 # Gate G3 Pre-validation — official routing (2026-07-07)
 
 Board: design/RP2350_80QFN_minimal.kicad_pcb (official routing, unmodified). Verdict: **PASS as-is**.
