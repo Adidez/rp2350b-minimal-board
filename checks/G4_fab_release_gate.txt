@@ -1,0 +1,124 @@
+# Gate G4 — fab release gate report (2026-07-07)
+
+Inputs (unchanged since their gates): design/RP2350_80QFN_minimal.kicad_sch (G1 PASS @452c132),
+design/RP2350_80QFN_minimal.kicad_pcb (G3 PASS) — `git status design/` clean at run time.
+Tooling: kicad-happy analyzers + fab_release_gate.py (independent reviewer),
+kicad-cli 10.0.4 ERC/DRC (ground truth).
+
+Regeneration:
+  SCRIPTS=~/Desktop/work/skill-review/kicad-happy/skills/kicad/scripts
+  python3 $SCRIPTS/analyze_schematic.py design/RP2350_80QFN_minimal.kicad_sch -o sch.json
+  python3 $SCRIPTS/analyze_pcb.py design/RP2350_80QFN_minimal.kicad_pcb --schematic sch.json -o pcb.json
+  python3 $SCRIPTS/analyze_gerbers.py fab/gerbers -o gerbers.json
+  python3 $SCRIPTS/fab_release_gate.py -s sch.json -p pcb.json -g gerbers.json --text
+
+================ RAW GATE OUTPUT (unedited) ================
+============================================================
+FABRICATION RELEASE GATE — FAIL — Issues must be resolved
+============================================================
+
+  9 pass  0 warn  1 fail  2 skip
+
+  Trust: MIXED — 62% deterministic, 38% heuristic (136 findings)
+  Provenance: 46.0% of findings carry detector provenance
+
+--- ROUTING ---
+  [PASS] All nets routed (75/75)
+
+--- BOM ---
+  [FAIL] 6 component(s) missing MPN
+         missing_mpn: C22, R1, R11, R13, R9, U4
+         coverage: 39/45
+  [PASS] All components have footprints assigned
+
+--- DFM ---
+  [PASS] DFM tier: standard
+
+--- DOCUMENTATION ---
+  [PASS] Revision marking found
+  [PASS] Board name found on silkscreen
+
+--- CONSISTENCY ---
+  [PASS] Schematic (49 placeable) matches PCB (49 footprints)
+  [PASS] Net counts match (75)
+
+--- GERBERS ---
+  [PASS] All expected layers present
+  [PASS] Layer coordinate ranges consistent
+
+--- THERMAL ---
+  [SKIP] Thermal analysis not provided
+
+--- EMC ---
+  [SKIP] EMC analysis not provided
+
+=============== PER-CHECK VERDICT (Stage-4 triage) ===============
+
+routing/routing_completeness      PASS   75/75 nets (matches G3: 0 unconnected)
+bom/mpn_coverage                  FAIL*  -> FALSE POSITIVE, accepted with citation (below)
+bom/footprint_assignment          PASS
+dfm/fab_capability                PASS   tier: standard (JLCPCB 2-layer capable)
+documentation/revision_marking    PASS
+documentation/board_name          PASS
+consistency/component_count       PASS   49 schematic placeable == 49 PCB footprints
+consistency/net_count             PASS   75 == 75
+gerbers/layer_completeness        PASS   7/7 expected layers, PTH+NPTH drills detected
+gerbers/layer_alignment           PASS   coordinate ranges consistent
+thermal / emc                     SKIP   optional analyses not part of this gate's scope
+
+*bom/mpn_coverage FAIL triage — metadata-only, NOT fab-blocking:
+  Flagged refs C22, R1, R9, R11, R13, U4 are EXACTLY the documented DNF set
+  (checks/G1_gate_report.md: "DNF (excluded from order): C22, R1, R9, R11, R13, U4").
+  This reference design marks DNF via Value="DNF" (reference values are law); the
+  analyzer credits DNP only for Value in {DNP, NP, DO NOT POPULATE, DO NOT PLACE}
+  or the KiCad dnp flag (analyze_schematic.py:527-529), so it counts these 6 as
+  fitted-and-missing-MPN. Upstream-limitation class already precedented in this
+  project (RS-001/PWR_FLAG, see toolchain.md). All 39 FITTED parts carry MPN+LCSC
+  (G1 PASS: 39 MPN + 39 LCSC), fab/bom_jlcpcb.csv has 17/17 lines LCSC-resolved,
+  and the DNF refs appear in neither fab/bom_jlcpcb.csv nor fab/cpl_jlcpcb.csv
+  (verified programmatically). JLCPCB never sees these parts.
+
+=============== TASK SANITY CHECKS ===============
+
+[PASS] 7 gerber layers, Protel extensions: F_Cu.gtl B_Cu.gbl F_Silkscreen.gto
+       B_Silkscreen.gbo F_Mask.gts B_Mask.gbs Edge_Cuts.gm1
+[PASS] Drill: Excellon, separate PTH (165 hits: 104 J2/J3 header pins + 61 vias,
+       exact reconciliation) + NPTH (4 hits = H1-H4 @2.70mm); mm, decimal, absolute origin
+[PASS] Edge.Cuts closed: 4 lines + 4 corner arcs, every endpoint paired (loop verified);
+       board 52.6 x 72.1 mm incl. 0.6mm edge stroke (gbrjob board_dimensions agrees:
+       52.6 x 72.1) == expected 52.6x72.1
+[PASS] fab/RP2350B_minimal_gerbers.zip contains ONLY the 10 fab files
+       (7 gerbers + 2 .drl + 1 .gbrjob), flat, no extraneous files
+[PASS] BOM 17 lines, 0 missing LCSC, refs cross-checked 1:1 against the G1
+       authoritative ordering table (39 fitted refs; script-verified)
+[PASS] CPL 39 parts, all Top, mm, JLCPCB headers; DNF (C22,R1,R9,R11,R13,U4) and
+       H1-H4 absent (H1-H4 excluded via exclude_from_pos_files attr; back-side DNF
+       excluded by --side front; front-side DNF R1,R9 stripped and verified)
+
+=============== NON-GATE ANALYZER FINDINGS (context, not gate checks) ===============
+
+kicad-cli ground truth re-run on the shipped board (this run):
+  DRC: 0 errors / 0 unconnected / 0 schematic-parity / 52 warnings
+       == the documented G3 metadata keep-set (52), unchanged.
+Schematic analyzer: 2 warnings = the known-benign RS-001 pair (PWR_FLAG not
+  credited on +1V1/VREG_AVDD — documented upstream limitation); 23 info notes.
+PCB analyzer "error"-severity findings, all triaged benign:
+  - KO-001 x42 "via inside keepout (bbox check)": FALSE POSITIVE — all 13 keepout
+    zones on the board are copperpour-only keepouts with (vias allowed) (tracks
+    allowed) (pads allowed), verified in the .kicad_pcb; kicad-cli DRC evaluates
+    the real keepout rules and reports 0 errors.
+  - FD-001 x2 "0 fiducials": advisory — JLCPCB panelizes prototypes and adds
+    rail fiducials/tooling; not required for their SMT line. Accepted for this order.
+  - PM-002 "J1 -0.75mm from edge": deliberate — USB Micro-B receptacle overhangs
+    the board edge by design (reference layout); required for cable clearance.
+Warnings: CC-002 (0.15mm traces — above JLCPCB 2-layer 0.127mm min, DFM tier
+  standard), TE-001 (no test points — minimal board by design), TB-001/CP-002
+  etc. info-class metadata.
+
+=============== VERDICT ===============
+
+GATE G4: PASS (with one cited analyzer false positive on the DNF convention).
+All fab-relevant checks pass; nothing fab-blocking. Fab package is
+JLCPCB-ready pending the human upload-time actions in fab/ROTATION_NOTES.md
+(rotation preview) and the ordering reminders (U1 A4 global-sourcing
+reservation; J2/J3 stock was 781 on 2026-07-07 — re-verify).
