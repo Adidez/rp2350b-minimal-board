@@ -13,6 +13,17 @@ with a human decision at every gate.
 
 **Top view** — [checks/pcb_top.png](checks/pcb_top.png) · **Bottom** — [checks/pcb_bottom.png](checks/pcb_bottom.png) · **Schematic PDF** — [checks/schematic_review.pdf](checks/schematic_review.pdf)
 
+## Open the design in KiCad
+
+Two ways:
+1. **No git needed**: download [RP2350B_minimal_kicad_project.zip](RP2350B_minimal_kicad_project.zip)
+   (or the repo ZIP via *Code ▾ → Download ZIP*), unzip, then double-click
+   `design/RP2350_80QFN_minimal.kicad_pro`.
+2. `git clone https://github.com/Adidez/rp2350b-minimal-board && open design/RP2350_80QFN_minimal.kicad_pro`
+
+Requires **KiCad 9 or 10** (files are v10 format; project-local symbol + footprint libraries and
+the STEP model are included, so it opens fully self-contained — no library setup needed).
+
 ![Top render](checks/pcb_top.png)
 
 ## What was actually done (the story)
