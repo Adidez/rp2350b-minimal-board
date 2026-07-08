@@ -43,8 +43,12 @@ the STEP model are included, so it opens fully self-contained — no library set
    332 pads), USB pair geometry sound for full-speed, solid bottom GND plane. A false-positive
    severity policy from the KiCad-7 project file was fixed at root cause.
    Evidence: [checks/G3_prevalidation.md](checks/G3_prevalidation.md).
-4. **Stage 4 — Fab package** (paused by owner decision): gerbers/drill/BOM/CPL for JLCPCB are
-   one command away; the ordering intel (stock, tiers, rotation-check list) is already banked.
+4. **Stage 4 — Fab package: DONE (Gate G4 PASS).** [fab/](fab/) holds the upload-ready set:
+   [gerber zip](fab/RP2350B_minimal_gerbers.zip) (7 Protel-ext layers + PTH/NPTH drills,
+   drill-count reconciled exactly against the design), [BOM](fab/bom_jlcpcb.csv) (17 lines,
+   100% LCSC-resolved), [CPL](fab/cpl_jlcpcb.csv) (39 parts) and
+   [ROTATION_NOTES.md](fab/ROTATION_NOTES.md). Release-gate evidence:
+   [checks/G4_fab_release_gate.txt](checks/G4_fab_release_gate.txt).
 
 Full audit trail: `git log` — every gate closes with its own commit and report in [checks/](checks/).
 
@@ -55,7 +59,7 @@ design/       The working KiCad project (schematic + routed PCB) — ERC/DRC cle
 reference/    Official Raspberry Pi minimal design (untouched) + hardware design guide PDF
 checks/       Gate reports + ERC/DRC JSON evidence + renders (the generated documents)
 datasheets/   Per-MPN vendor datasheets (17) + manifest
-fab/          (empty until Stage 4 resumes — gerbers/BOM/CPL land here)
+fab/          JLCPCB-ready package: gerber zip, assembly BOM (LCSC), CPL, rotation notes
 .claude/      The pipeline skill: stage gates, RP2350B design rules, toolchain quirks
 ```
 
@@ -83,12 +87,17 @@ $KCLI pcb render --side top --output /tmp/top.png design/RP2350_80QFN_minimal.ki
 Expected residual warnings are documented (66 `endpoint_off_grid` + 6 `lib_symbol_mismatch` on
 the schematic; 52 metadata findings on the PCB) — see the gate reports for the keep-rationale.
 
-## Remaining path to a live board
+## Remaining path to a live board (human steps)
 
-1. Resume Stage 4 → JLCPCB package (gerbers, drill, BOM with LCSC numbers, CPL with rotation notes)
-2. Order: verify RP2350B **A4** stock (global-sourcing part — reserve early); watch J2/J3 header
-   stock; economic PCBA covers the SMD side, THT headers may be hand-solder
-3. Bring-up: 3V3 → 1V1 (proves VREG+inductor) → BOOTSEL enumeration → UF2 → confirm A4 in silicon
+1. **Order at JLCPCB**: upload [fab/RP2350B_minimal_gerbers.zip](fab/RP2350B_minimal_gerbers.zip) +
+   [BOM](fab/bom_jlcpcb.csv) + [CPL](fab/cpl_jlcpcb.csv). In the assembly preview, verify
+   orientation of U1/U2/U3/J1/L1/Y1 against [checks/pcb_top.png](checks/pcb_top.png) — see
+   [fab/ROTATION_NOTES.md](fab/ROTATION_NOTES.md). RP2350B **A4** (C9900208890) is a
+   global-sourcing part — reserve early; re-verify all Extended-tier stock (table dated
+   2026-07-07). Pick **Standard** assembly if J2/J3 headers should be machine-placed
+   (Economic = SMD-only → hand-solder the headers).
+2. **Bring-up**: 3V3 → 1V1 (proves VREG + inductor) → hold BOOTSEL, plug USB → mass-storage
+   enumeration → flash a UF2 → confirm **A4** in silicon via `rp2350_chip_version()`.
 
 ## Attribution & licenses
 
