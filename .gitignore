@@ -2,3 +2,4 @@ fab/gerbers/
 *.rpt
 .DS_Store
 tools/
+CLAUDE.md

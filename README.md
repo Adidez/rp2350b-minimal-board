@@ -1,8 +1,8 @@
 # RP2350B Minimal Board — AI-Assisted, Gate-Verified KiCad Project
 
 A Raspberry Pi **RP2350B (QFN-80)** minimal development board, taken from the official reference
-design to a **fab-ready, evidence-verified state** by an AI-assisted hardware pipeline
-(Claude Code) with a human decision at every gate.
+design to a **fab-ready, evidence-verified state** by a gated, evidence-first hardware pipeline
+with a human decision at every gate.
 
 | | |
 |---|---|
@@ -46,7 +46,6 @@ checks/       Gate reports + ERC/DRC JSON evidence + renders (the generated docu
 datasheets/   Per-MPN vendor datasheets (17) + manifest
 fab/          (empty until Stage 4 resumes — gerbers/BOM/CPL land here)
 .claude/      The pipeline skill: stage gates, RP2350B design rules, toolchain quirks
-CLAUDE.md     Project status + standing decisions
 ```
 
 ## The design rules that matter (and that generic AI gets wrong)
@@ -89,7 +88,5 @@ the schematic; 52 metadata findings on the PCB) — see the gate reports for the
   (Winbond, onsemi, Abracon, Samsung, UNI-ROYAL, ALPS, JST, Amphenol, XKB, Raspberry Pi).
 - Verification tooling: [KiCad](https://kicad.org) 10.0.4 · [kicad-happy](https://github.com/aklofas/kicad-happy)
   (analysis) · [KiCadRoutingTools](https://github.com/drandyhaas/KiCadRoutingTools) (post-route checks).
-- Pipeline orchestration: Claude Code with a project-specific gated skill
+- Pipeline definition: project-specific gated skill
   ([.claude/skills/rp2350b-hardware-pipeline](.claude/skills/rp2350b-hardware-pipeline)).
-
-🤖 Built with [Claude Code](https://claude.com/claude-code)
