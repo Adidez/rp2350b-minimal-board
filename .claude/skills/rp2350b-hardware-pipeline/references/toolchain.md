@@ -47,6 +47,13 @@ footprint natively.
   `/find-high-speed-nets`, `/analyze-power-nets`, `/recommend-stackup`,
   `/recommend-plane-mappings`, `/review-routed-board`, `/diagnose-routing-failures`,
   `/stress-test-router`.
+- **TRAP: the checkers (check_drc/check_connected/check_orphan_stubs) cannot parse KiCad-7
+  `(tstamp …)` boards** — kicad_parser.py requires v8+ `(uuid "…")`, so on a v7 board they see
+  0 segments and PASS VACUOUSLY. Always run them on a v10-format board (convert via pcbnew:
+  `python3` under KiCad's bundled interpreter, LoadBoard+SaveBoard, or save once from the GUI).
+  Verify the checker reports a non-zero segment count before trusting any PASS.
+- Their analysis scripts need numpy/scipy/shapely — system python3 lacks them; use a venv
+  (requirements.txt in the repo).
 
 ## Layout of this project
 
@@ -71,6 +78,25 @@ tools/       KiCadRoutingTools
   `lib_symbols` copy stays stale on purpose (keep-cached policy).
 - kicad-happy RS-001 does not credit PWR_FLAG symbols (upstream limitation) — its +1V1/VREG_AVDD
   findings are permanent benign noise in this project; kicad-cli ERC is the gate authority.
+- **The reference .kicad_sch is CRLF** — editors/scripts that normalize to LF produce a
+  full-file diff. Preserve EOLs on every edit (check with `file`/`git diff --stat` before
+  committing: a property-only change should be a few dozen lines, not thousands).
+
+## Schematic editing conventions (adapted from the mcpmarket "schematic-design" skill — its
+## good 20%; the skill itself was rejected: depends on an unavailable MCP server)
+
+- Coordinates on the 1.27 mm grid; snap everything you place.
+- Spacing minima: 10.16 mm vertical between components · 12.7 mm between passives in a row ·
+  ~25.4 mm from an IC to its supporting passives · 25.4–50.8 mm between functional stages.
+  Keep clear of the title block (~108×32 mm, bottom-right).
+- Net naming: UPPERCASE descriptive (`VIN_PROT`, `SPI_MOSI`); active-low suffix `_N`; never
+  `NET1`/`WIRE3`.
+- Power/ground rails: net labels, never daisy-chained wires. Decouplers placed visually
+  adjacent to the IC they serve.
+- PWR_FLAG only on nets that have power_in pins and NO power_out/output pin (exactly the
+  +1V1/VREG_AVDD case from Stage 0).
+- Don't improvise mid-execution: if the plan is wrong, fix the plan, don't patch placements
+  ad-hoc; after any modification pass, re-annotate `?` refs and re-run ERC before committing.
 
 ## Deliberately NOT in the stack (evaluated + rejected July 2026)
 

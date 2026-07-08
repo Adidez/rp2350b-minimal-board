@@ -1,0 +1,9 @@
+=== Review Summary [stage: schematic] ===
+
+--- power ---
+  [1] WARNING RS-001: +1V1 has no declared source
+      Rec: Add a PWR_FLAG to declare the rail as externally powered (e.g. from a connector) or trace the rail back to a regulator output. If the source lives on another sheet, promote the net name to a global label.
+  [2] WARNING RS-001: VREG_AVDD has no declared source
+      Rec: Add a PWR_FLAG to declare the rail as externally powered (e.g. from a connector) or trace the rail back to a regulator output. If the source lives on another sheet, promote the net name to a global label.
+
+Total: 2 (0 errors, 2 warnings)
