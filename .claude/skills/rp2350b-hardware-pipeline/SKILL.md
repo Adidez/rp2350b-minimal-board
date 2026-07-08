@@ -34,12 +34,17 @@ to fix now, a respin costs ~2 weeks and real money after fab.
 ## Stage 0 — Baseline (do once)
 
 1. Copy `reference/RP2350B-minimal/` → `design/` (never edit the reference in place).
-2. Migrate KiCad 7 → 10: open project, update symbols from library (accept cached where library
-   differs intentionally), fix `endpoint_off_grid` by grid-snapping, re-link the project-local
-   `.pretty` footprint lib in fp-lib-table.
-3. **Gate G0**: `kicad-cli sch erc` → 0 errors; the only acceptable warnings are the two
-   `power_pin_not_driven` on `+1V1`/`VREG_AVDD` (internal-VREG rails — expected, see design
-   rules). Run kicad-happy's schematic analyzer and store the report next to `baseline_erc.rpt`.
+2. Migrate KiCad 7 → 10: ensure global lib tables exist (fresh installs have none — copy from
+   the app bundle's `SharedSupport/template/`), add PWR_FLAG to the internal-VREG rails
+   (`+1V1`, `VREG_AVDD`), re-link footprints renamed by v10 (instance properties only).
+   Do NOT grid-snap `endpoint_off_grid` warnings (snapping risks disconnecting nets that
+   connect today) and do NOT update cached lib_symbols (reference values are law) — both
+   warning classes are kept and documented.
+3. **Gate G0**: `kicad-cli sch erc` → 0 errors; residual warnings limited to the documented
+   keep-set (`endpoint_off_grid`, `lib_symbol_mismatch`). Prove any schematic edit with a
+   netlist-equivalence diff. Run kicad-happy's analyzer and store the report in `checks/`
+   (note: its RS-001 doesn't credit PWR_FLAG — benign noise on the VREG rails; kicad-cli is
+   the gate authority). See `references/toolchain.md` § surgery quirks before editing.
 
 ## Stage 1 — Schematic work
 

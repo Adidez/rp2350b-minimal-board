@@ -58,6 +58,20 @@ fab/         gerbers, BOM, CPL, release-gate reports
 tools/       KiCadRoutingTools
 ```
 
+## .kicad_sch surgery quirks (learned Stage 0, 2026-07-07 — read before editing schematics)
+
+- KiCad 10's `power:PWR_FLAG` pin name is **empty** (v7 syntax: `(name "~")`), not "pw" — using
+  the old name adds a lib_symbol_mismatch warning.
+- ERC JSON `pos` values are **mm/100** (1.1938 → 119.38 mm). Not inches.
+- Power symbols (`#PWR`/`#FLG`) never appear in exported netlists — prove PWR_FLAG placement by
+  the error vanishing + unchanged net membership, not by looking for #FLG nodes.
+- Local labels get a `/` prefix in netlist names (`VREG_AVDD` → `/VREG_AVDD`).
+- v7 `ki_description` compares equal to v10 `Description` in the library-mismatch checker.
+- Footprint strings can exist in 3 places; fix instance properties only — the cached
+  `lib_symbols` copy stays stale on purpose (keep-cached policy).
+- kicad-happy RS-001 does not credit PWR_FLAG symbols (upstream limitation) — its +1V1/VREG_AVDD
+  findings are permanent benign noise in this project; kicad-cli ERC is the gate authority.
+
 ## Deliberately NOT in the stack (evaluated + rejected July 2026)
 
 - BeckhamLabsLLC/kicad-jlcpcb (dead parts backend), colaco1123/K-AI (abandoned, ToS risk),
