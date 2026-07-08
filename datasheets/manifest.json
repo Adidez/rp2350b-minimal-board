@@ -1,0 +1,283 @@
+{
+  "schematic": "design/RP2350_80QFN_minimal.kicad_sch",
+  "last_sync": "2026-07-08T01:56:47.441906+00:00",
+  "parts": {
+    "CL21A106KAYNNNE": {
+      "file": "CL21A106KAYNNNE.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "10u",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/02336ea48ea44ca18c72517dd3cb7b47.pdf?productCode=C15850",
+      "downloaded_date": "2026-07-08T01:56:33.540957+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "C1",
+        "C5",
+        "C19"
+      ],
+      "size_bytes": 7856403,
+      "verification": "unverified"
+    },
+    "CL05B104KO5NNNC": {
+      "file": "CL05B104KO5NNNC.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "100n",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/02336ea48ea44ca18c72517dd3cb7b47.pdf?productCode=C1525",
+      "downloaded_date": "2026-07-08T01:56:35.454914+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "C2",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C20",
+        "C11",
+        "C13",
+        "C21",
+        "C8",
+        "C12"
+      ],
+      "size_bytes": 7856403,
+      "verification": "unverified"
+    },
+    "0402CG150J500NT": {
+      "file": "0402CG150J500NT.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "15p",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/1d68de45d3d03f7d19bed6f0fb11e8ab.pdf?productCode=C1548",
+      "downloaded_date": "2026-07-08T01:56:36.377683+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "C3",
+        "C4"
+      ],
+      "size_bytes": 1006630,
+      "verification": "unverified"
+    },
+    "CL05A475MP5NRNC": {
+      "file": "CL05A475MP5NRNC.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "4.7u",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/02336ea48ea44ca18c72517dd3cb7b47.pdf?productCode=C23733",
+      "downloaded_date": "2026-07-08T01:56:37.797822+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "C9",
+        "C10"
+      ],
+      "size_bytes": 7856403,
+      "verification": "unverified"
+    },
+    "10103594-0001LF": {
+      "file": "10103594-0001LF.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "USB_B_Micro",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/ca5a42dbf95ebfb4fb84a094027e7ce9.pdf?productCode=C428495",
+      "downloaded_date": "2026-07-08T01:56:38.511423+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "J1"
+      ],
+      "size_bytes": 221258,
+      "verification": "unverified"
+    },
+    "X6521WV-2x26H-C60D30": {
+      "file": "X6521WV-2x26H-C60D30.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "Conn_02x26_Odd_Even",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/d88736679b0a8425e370285ac3a23e9f.pdf?productCode=C725898",
+      "downloaded_date": "2026-07-08T01:56:38.896192+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "J3",
+        "J2"
+      ],
+      "size_bytes": 125951,
+      "verification": "unverified"
+    },
+    "SM03B-SRSS-TB(LF)(SN)": {
+      "file": "SM03B-SRSS-TB(LF)(SN).pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "SM03B-SRSS-TB",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/e03a82bcc66e3c3589917313e54d45e2.pdf?productCode=C160403",
+      "downloaded_date": "2026-07-08T01:56:39.301268+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "J4"
+      ],
+      "size_bytes": 153968,
+      "verification": "unverified"
+    },
+    "AOTA-B201610S3R3-101-T": {
+      "file": "AOTA-B201610S3R3-101-T.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "3.3u",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/0ca6a1bbc70fd13a89f7695ff7dd8558.pdf?productCode=C42411119",
+      "downloaded_date": "2026-07-08T01:56:39.497691+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "L1"
+      ],
+      "size_bytes": 708418,
+      "verification": "unverified"
+    },
+    "0402WGF0000TCE": {
+      "file": "0402WGF0000TCE.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "0",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C17168",
+      "downloaded_date": "2026-07-08T01:56:39.912266+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "R10"
+      ],
+      "size_bytes": 467557,
+      "verification": "unverified"
+    },
+    "0402WGF1001TCE": {
+      "file": "0402WGF1001TCE.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "1k",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C11702",
+      "downloaded_date": "2026-07-08T01:56:40.164090+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "R2",
+        "R4",
+        "R6"
+      ],
+      "size_bytes": 467557,
+      "verification": "unverified"
+    },
+    "0402WGF330JTCE": {
+      "file": "0402WGF330JTCE.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "33",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25105",
+      "downloaded_date": "2026-07-08T01:56:40.414972+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "R3"
+      ],
+      "size_bytes": 467557,
+      "verification": "unverified"
+    },
+    "0402WGF270JTCE": {
+      "file": "0402WGF270JTCE.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "27",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/0a975aaa49b7c97f38a963127be4a823.pdf?productCode=C25100",
+      "downloaded_date": "2026-07-08T01:56:40.615838+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "R7",
+        "R8"
+      ],
+      "size_bytes": 467557,
+      "verification": "unverified"
+    },
+    "SKRPACE010": {
+      "file": "SKRPACE010.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "SW_Push",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/0d81285c392e478b95c7e9b3b68f85ec.pdf?productCode=C139797",
+      "downloaded_date": "2026-07-08T01:56:40.812508+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "SW2",
+        "SW1"
+      ],
+      "size_bytes": 665252,
+      "verification": "unverified"
+    },
+    "RP2350B A4": {
+      "file": "RP2350B_A4.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "RP2350_80QFN",
+      "datasheet_url": "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+      "downloaded_date": "2026-07-08T01:56:41.056014+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "U1"
+      ],
+      "size_bytes": 7968417,
+      "verification": "unverified"
+    },
+    "NCP1117ST33T3G": {
+      "file": "NCP1117ST33T3G.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "NCP1117-3.3_SOT223",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/4804d558e4260a5b696428f130d93d92.pdf?productCode=C26537",
+      "downloaded_date": "2026-07-08T01:57:45.379407+00:00",
+      "source": "lcsc",
+      "lcsc": "C26537",
+      "status": "ok",
+      "references": [
+        "U2"
+      ],
+      "size_bytes": 421079,
+      "verification": "unverified"
+    },
+    "W25Q128JVSIQ": {
+      "file": "W25Q128JVSIQ.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "W25Q128JVS",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/d009d960f1daec6149edaa35b7dae856.pdf?productCode=C97521",
+      "downloaded_date": "2026-07-08T01:56:44.373207+00:00",
+      "source": "lcsc",
+      "status": "ok",
+      "references": [
+        "U3"
+      ],
+      "size_bytes": 2511637,
+      "verification": "unverified",
+      "lcsc": "C97521"
+    },
+    "ABM8-272-T3": {
+      "file": "ABM8-272-T3.pdf",
+      "manufacturer": "",
+      "description": "",
+      "value": "ABM8-272-T3",
+      "datasheet_url": "https://datasheet.lcsc.com/datasheet/pdf/d5520a242c89eeaef42f6496027f72da.pdf?productCode=C20625731",
+      "downloaded_date": "2026-07-08T01:56:46.906670+00:00",
+      "source": "schematic",
+      "status": "ok",
+      "references": [
+        "Y1"
+      ],
+      "size_bytes": 691102,
+      "verification": "unverified"
+    }
+  }
+}
